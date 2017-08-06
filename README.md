@@ -72,6 +72,3 @@ This bot is built using following projects:
 ##
 
 **Thanks to Neffi from the Skyrimmods Discord for helping out with this project and providing valuable feedback.**
-##
-
-**Due to a mistake, I commited as Netrve instead of Dakraid. Both are the same person.**
