@@ -1,0 +1,8 @@
+-- This file stores the config for the bot, mainly the token and the trigger (more to come)
+-- Just copy and paste your token into the field and you are good to go
+-- Example: Settings = {token = "ThisIsWhereYourTokenGoes", trigger = "~"}
+local Settings = {token = "", trigger = "!"}
+
+function GetConfig(name)
+  return Settings[name]
+end

@@ -1,0 +1,4 @@
+-- This file lets you block certain users based on their ID
+-- Example: BlockedUsers = {"123456","234567",...}
+BlockedUsers = {}
+return BlockedUsers

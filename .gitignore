@@ -1,0 +1,10 @@
+*.exe
+*.def
+*.dll
+*.db
+*.so
+*.txt
+config.lua
+blacklist.lua
+gateway.json
+loadmap.lua
