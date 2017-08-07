@@ -106,7 +106,7 @@ function CheckBlacklist(user)
 end
 
 function CheckPermission(user,level)
-  local tmp = user.username:lower()
+  local tmp = user.id
   if Users[tmp] == level then
     return true
   else

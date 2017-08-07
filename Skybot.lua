@@ -33,7 +33,7 @@ end)
 
 -- Debugging Interface
 --[[
-  local TestUser = {username = "TestBot", id = "123456"}
+  local TestUser = {username = "TestBot", id = 123456}
   repeat
     io.write("Please enter input: ")
     io.flush()
