@@ -6,7 +6,7 @@ SkybotV2 is a Discord bot written in Lua and utilizes Luvit and the Discordia li
 
 The main functionality of the bot will come from an assortment of plugins included with the bot.
 
-Currently all commands are processed within commands.lua within the netlib. The only functionality right now is to output Factoids.
+Currently all commands are processed within process.lua within the netlib and are handed of from there. The only functionality right now is to output Factoids, which is contained within the factoids.lua file within the netlib.
 
 ## Setup
 
