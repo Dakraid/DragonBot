@@ -12,15 +12,27 @@ Currently all commands are processed within commands.lua within the netlib. The 
 
 ### Windows
 
-To run the bot under Windows, execute the InstallLuvit.ps1 script. After running the script, go to [SQLite.org Downloads](https://sqlite.org/download.html) and get the corresponding pre-compiled Windows Binaries for your system. From the archive copy the sqlite3.ddl into the project directory. That's it.
+To run the bot under Windows, execute the Install.bat script. After running the script, go to [SQLite.org Downloads](https://sqlite.org/download.html) and get the corresponding pre-compiled Windows Binaries for your system. From the archive copy the sqlite3.dll into the project directory. That's it. The setup script looks like this:
+```
+@echo off
+REM Installer for SkybotV2
+
+REM Install Luvit
+PowerShell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://github.com/luvit/lit/raw/master/get-lit.ps1'))"
+
+REM Generate default config
+xcopy ".\config.lua.default" ".\config.lua"
+xcopy ".\blacklist.lua.default" ".\blacklist.lua"
+xcopy ".\userlist.lua.default" ".\userlist.lua"
+```
 
 ### Linux
 
-The Setup script should get everything running. If you want to do it manually, you need to grab [Luvit](https://luvit.io/) and install it yourself as well as copy the correct files around. What should be copied can be found within the Setup script (location of libsqlite3.so can change based on the distro you use):
+The Setup script should get everything running. If you want to do it manually, you need to grab [Luvit](https://luvit.io/) and install it yourself as well as copy the correct files around. What should be copied can be found within the Setup script (location of libsqlite3.so can change based on the distro you use). The setup script looks like this:
 
 ```
 #!/bin/bash
-#Installer for SkybotV2
+# Installer for SkybotV2
 
 # Install Luvit
 curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh
@@ -29,11 +41,15 @@ cp luvi /usr/local/bin/luvi
 cp luvit /usr/local/bin/luvit
 
 # Copy libsqlite3.so to the project directory
-cp /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 libsqlite3.so
+cp /usr/lib/libsqlite3.so.0 libsqlite3.so>/dev/null || :
+cp /usr/lib/x86_64-linux-gnu/libsqlite3.so.0 libsqlite3.so>/dev/null || :
+# See if the file is actually there 
+cp libsqlite3.so libsqlite3.so
 
 # Generate the default config
-cp blacklist.lua.default blacklist.lua
 cp config.lua.default config.lua
+cp blacklist.lua.default blacklist.lua
+cp userlist.lua.default userlist.lua
 ```
 
 ## Configuration
@@ -67,7 +83,7 @@ This bot is built using following projects:
 * [Luvit](https://github.com/luvit/luvit)
 * [Lit-Sqlite3](https://github.com/SinisterRectus/lit-sqlite3)*
 
-\*This plugin has been patched to include a following fix: [stepelu/lua-ljsqlite3/FIX: rowexec()](https://github.com/stepelu/lua-ljsqlite3/commit/b954905003880105926ed51a01df2b5ac32701f1)
+\*This plugin has been patched to include following fix: [stepelu/lua-ljsqlite3/FIX: rowexec()](https://github.com/stepelu/lua-ljsqlite3/commit/b954905003880105926ed51a01df2b5ac32701f1)
 
 ##
 
