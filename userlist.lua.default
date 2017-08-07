@@ -1,0 +1,4 @@
+-- This file lets you set the permissions for users/roles
+-- Example: Users = {owner = 0, admin = 1, moderator = 2, user1 = 3}
+Users = {}
+return Users

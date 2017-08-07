@@ -8,3 +8,4 @@ config.lua
 blacklist.lua
 gateway.json
 loadmap.lua
+userlist.lua

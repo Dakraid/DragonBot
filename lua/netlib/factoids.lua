@@ -4,6 +4,7 @@ local public    = {}
 
 local database
 local db_conn   = false
+local db_lock   = false
 
 local max_split = 4
 
@@ -27,7 +28,9 @@ function public.Process(tokens)
   local output
   logger.Log("notice","Entered Factoids.lua")
   -- Open connection to the SQLite database
-  database = ConnectDB()
+  if not db_lock then
+    public.Connect()
+  end
   if db_conn then
     if KeepAlive() then
       local key = ConcatKey(tokens)
@@ -36,26 +39,35 @@ function public.Process(tokens)
     else
       logger.Log("warning","Database connection failed, reconnect was unsuccessful.")
     end
+  else
+    output = "Database is locked."
+    logger.Log("notice","Database is not connected")
   end
   return output
 end
 
 function public.Reconnect()
-  if db_conn then
-    local output = ""
-    if KeepAlive() then
-      output = "Database reconnected!"
+  local output
+  if not db_lock then
+    if db_conn then
+      if KeepAlive() then
+        output = "Database reconnected."
+        logger.Log("notice","Database has been reconnected")
+      else
+        output = "Database reconnection failed."
+        logger.Log("notice","Database reconnect failed")
+      end
     else
-      output = "Database reconnection failed!"
+      public.Connect()
+      output = "Database connected!"
     end
   else
-    ConnectDB()
-    output = "Database connected!"
+    output = "Database is locked."
   end
   return output
 end
 
-function ConnectDB()
+function public.Connect()
   local name = "Factoids.db"
   local conn = sqlite.open(name)
   conn:exec[[
@@ -77,13 +89,63 @@ function ConnectDB()
   insert or replace into validator (validKey,validValue) values ("Valid","true");
   ]]
   db_conn = true
-  logger.Log("notice","Database connected/created")
-  return conn
+  logger.Log("notice","Database connected")
+  database = conn
+end
+
+function public.Disconnect()
+  local output
+  if db_conn then
+    database:close()
+    db_conn = false
+    logger.Log("notice","Database has been disconnected")
+    output = "Database disconnected."
+  else
+    output = "Database is already disconnected."
+  end
+  return output
+end
+
+function public.LockDatabase()
+  local output
+  if not db_lock then
+    db_lock = true
+    output = "Database locked."
+    logger.Log("notice","Database locked")
+  else
+    output = "Database is already locked."
+  end
+  return output
+end
+
+function public.UnlockDatabase()
+  local output
+  if db_lock then
+    db_lock = false
+    output = "Database unlocked."
+    logger.Log("notice","Database  unlocked")
+  else
+    output = "Database is already unlocked"
+  end
+  return output
+end
+
+function public.ListKeys()
+  local output
+  local tmp
+  if db_conn then
+    tmp = database:exec("select key from factoids")
+    output = table.concat(tmp[1],", ")
+  else
+    output = "Database is not connected."
+  end
+  return output
 end
 
 function KeepAlive()
   local validator = database:rowexec("SELECT validValue FROM validator WHERE validKey=='Valid'")
   if not validator then
+    database:close()
     local name = "Factoids.db"
     local conn = sqlite.open(name, "rw")
     database = conn

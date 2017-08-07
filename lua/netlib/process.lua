@@ -3,6 +3,7 @@ local public      = {}
 local Config      = require('config')
 local Trigger     = GetConfig("trigger")
 
+local Users       = require('userlist')
 local Blacklist   = require('blacklist')
 local Commands    = require('./commands')
 
@@ -37,12 +38,31 @@ function public.ProcessMessage(content,user)
 end
 
 function ProcessCommand(user)
-  if Tokens[1]     == Trigger .. "help" then
+  local command = Tokens[1]:lower()
+  if command     == Trigger .. "help" then
     out_message = "Facts can be called by using '!key'"
     out_author  = user.username
-  elseif Tokens[1] == Trigger .. "reconnect" and CheckPermission(user,0) then
-    out_message = Factoids.Reconnect()
+  elseif command == Trigger .. "listkeys" then
+    out_message = Factoids.ListKeys()
     out_author  = user.username
+  end
+  if CheckPermission(user,0) then
+    if command == Trigger .. "connect" then
+      out_message = Factoids.Connect()
+      out_author  = user.username
+    elseif command == Trigger .. "reconnect" then
+      out_message = Factoids.Reconnect()
+      out_author  = user.username
+    elseif command == Trigger .. "disconnect" then
+      out_message = Factoids.Disconnect()
+      out_author  = user.username
+    elseif command == Trigger .. "lockdb" then
+      out_message = Factoids.LockDatabase()
+      out_author  = user.username
+    elseif command == Trigger .. "unlockdb" then
+      out_message = Factoids.UnlockDatabase()
+      out_author  = user.username
+    end
   end
   return out_message, out_author
 end
@@ -86,9 +106,8 @@ function CheckBlacklist(user)
 end
 
 function CheckPermission(user,level)
-  local users = {netrve = 0}
-  local tmp = user.username
-  if users[tmp] == level then
+  local tmp = user.username:lower()
+  if Users[tmp] == level then
     return true
   else
     return false

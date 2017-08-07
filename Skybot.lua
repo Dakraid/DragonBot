@@ -31,10 +31,16 @@ client:on('messageCreate', function(message)
   end
 end)
 
--- Used for Debugging
+-- Debugging Interface
 --[[
-    local out_msg, out_athr = prcs.ProcessMessage("!netrve this is a test","dude")
-    print(out_msg,out_athr)
+  local TestUser = {username = "TestBot", id = "123456"}
+  repeat
+    io.write("Please enter input: ")
+    io.flush()
+    local input = io.read()
+    local out_msg, out_athr = prcs.ProcessMessage(input,TestUser)
+    print("DEBUG: ",out_msg,out_athr)
+  until input == "quit"
 --]]
-
+  
 client:run(GetConfig("token"))
