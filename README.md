@@ -56,19 +56,10 @@ cp userlist.lua.default userlist.lua
 
 Configuring the bot is simple, it currently features two files that are supposed to be edited:
 
-### blacklist.lua
-```
--- This file lets you block certain users based on their ID
--- Example: BlockedUsers = {"123456","234567",...}
-BlockedUsers = {}
-return BlockedUsers
-```
-
 ### config.lua
 ```
 -- This file stores the config for the bot, mainly the token and the trigger (more to come)
 -- Just copy and paste your token into the field and you are good to go
--- Example: Settings = {token = "ThisIsWhereYourTokenGoes", trigger = "~"}
 local Settings = {token = "", trigger = "!"}
 
 function GetConfig(name)
@@ -76,6 +67,21 @@ function GetConfig(name)
 end
 ```
 
+### userlist.lua
+```
+-- This file lets you set the permissions for users/roles (currently based on ID)
+-- Example: Users = {[123456] = 0, [234567] = 1}
+Users = {}
+return Users
+```
+
+### blacklist.lua
+```
+-- This file lets you block certain users based on their ID
+-- Example: {"123456","234567",...}
+BlockedUsers = {}
+return BlockedUsers
+```
 
 ## Dependencies
 
