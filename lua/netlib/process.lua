@@ -33,7 +33,14 @@ function ProcessCommand(user,member,guild,Tokens)
   local command = Tokens[1]:lower()
   out_author  = user.username
   if command     == Trigger .. "help" then
-    out_message = "Facts can be called by using '!key'"
+    out_message = ": Enter facts: \"!x is y\"; Replace facts: \"!no x is y\"; Delete facts: \"!forget x\";"
+  end
+  if Permissions.CheckPermission(user,0) then
+    if command     == Trigger .. "forget" then
+      out_message   = Factoids.FactRemove(Tokens,Trigger)
+    elseif command == Trigger .. "no" then
+      out_message   = Factoids.FactReplace(Tokens,Trigger,user)
+    end
   end
   if Permissions.CheckPermission(user,1) then
     if     command == Trigger .. "connect" then
@@ -46,10 +53,6 @@ function ProcessCommand(user,member,guild,Tokens)
       out_message   = Factoids.LockDatabase()
     elseif command == Trigger .. "unlockdb" then
       out_message   = Factoids.UnlockDatabase()
-    elseif command == Trigger .. "forget" then
-      out_message   = Factoids.FactRemove(Tokens,Trigger)
-    elseif command == Trigger .. "no" then
-      out_message   = Factoids.FactReplace(Tokens,Trigger,user)
     elseif command == Trigger .. "listkeys" then
       out_message   = Factoids.ListKeys()
       out_repeat    = true
@@ -65,9 +68,7 @@ end
 function Tokenize(content)
   local tkns = {}
   local cnt  = 0
-  local tmp = content:match("^!%a*") 
-  content = content:gsub("^!%a*,",tmp)
-  content = content:gsub("^!%a* ,",tmp .. " ")
+  content = content:gsub("^(!%a+)%s*,", "%1 ", 1)
   for token in string.gmatch(content, "%S+") do
     cnt       = cnt + 1
     tkns[cnt] = token
