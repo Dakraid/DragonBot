@@ -70,7 +70,7 @@ end
 ### userlist.lua
 ```
 -- This file lets you set the permissions for users/roles (currently based on ID)
--- Example: Users = {[123456] = 0, [234567] = 1}
+-- Example: Users = {["123456"] = 0, ["234567"] = 1}
 Users = {}
 return Users
 ```
