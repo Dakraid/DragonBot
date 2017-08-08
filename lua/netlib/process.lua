@@ -67,7 +67,7 @@ function Tokenize(content)
   local cnt  = 0
   local tmp = content:match("^!%a*") 
   content = content:gsub("^!%a*,",tmp)
-  content = content:gsub("^!%a* ,",tmp)
+  content = content:gsub("^!%a* ,",tmp .. " ")
   for token in string.gmatch(content, "%S+") do
     cnt       = cnt + 1
     tkns[cnt] = token
