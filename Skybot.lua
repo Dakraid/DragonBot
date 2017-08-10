@@ -1,6 +1,5 @@
-local debugmode = false
-
 local config    = require('config')
+local debugmode = GetConfig("debugmode")
 
 _G.sqlite       = require('sqlite3')
 local discordia = require('discordia')

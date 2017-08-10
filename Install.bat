@@ -8,3 +8,4 @@ REM Generate default config
 xcopy ".\config.lua.default" ".\config.lua"
 xcopy ".\blacklist.lua.default" ".\blacklist.lua"
 xcopy ".\userlist.lua.default" ".\userlist.lua"
+xcopy ".\factconfig.lua.default" ".\factconfig.lua"

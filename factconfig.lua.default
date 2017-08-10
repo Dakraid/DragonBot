@@ -1,0 +1,7 @@
+-- This file stores the config for the factoids plugin, mainly the database name
+-- Example: Settings = {database_name = "Factoids.db"}
+local Settings = {database_name = "Factoids.db"}
+
+function GetConfig(name)
+  return Settings[name]
+end

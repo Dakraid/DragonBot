@@ -17,3 +17,4 @@ cp libsqlite3.so libsqlite3.so
 cp config.lua.default config.lua
 cp blacklist.lua.default blacklist.lua
 cp userlist.lua.default userlist.lua
+cp factconfig.lua.default factconfig.lua

@@ -1,7 +1,10 @@
-local public      = {}
+local public        = {}
 
-local Users       = require('userlist')
-local Blacklist   = require('blacklist')
+local Config        = require('config')
+local DefaultPerms  = GetConfig("defaultclearance")
+
+local Users         = require('userlist')
+local Blacklist     = require('blacklist')
 
 -- Returns true if the user has been found in the blacklist
 function public.CheckBlacklist(user)
@@ -15,7 +18,7 @@ end
 
 function public.CheckPermission(user,level)
   local clearance = Users[user.id]
-  if not clearance then clearance = 0 end
+  if not clearance then clearance = DefaultPerms end
   if clearance >= level then
     return true
   else

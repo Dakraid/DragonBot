@@ -35,14 +35,14 @@ function ProcessCommand(user,member,guild,Tokens)
   if command     == Trigger .. "help" then
     out_message = ": Enter facts: \"!x is y\"; Replace facts: \"!no x is y\"; Delete facts: \"!forget x\";"
   end
-  if Permissions.CheckPermission(user,0) then
+  if Permissions.CheckPermission(user,1) then
     if command     == Trigger .. "forget" then
       out_message   = Factoids.FactRemove(Tokens,Trigger)
     elseif command == Trigger .. "no" then
       out_message   = Factoids.FactReplace(Tokens,Trigger,user)
     end
   end
-  if Permissions.CheckPermission(user,1) then
+  if Permissions.CheckPermission(user,2) then
     if     command == Trigger .. "connect" then
       out_message   = Factoids.Connect()
     elseif command == Trigger .. "reconnect" then

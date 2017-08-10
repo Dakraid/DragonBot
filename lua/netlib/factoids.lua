@@ -1,5 +1,8 @@
 local logger    = require('./logger')
-local perms    = require('./permissions')
+local perms     = require('./permissions')
+
+local Config    = require('factconfig')
+local db_name   = GetConfig("database_name")
 
 local public    = {}
 
@@ -31,7 +34,7 @@ function public.Process(tokens,user)
           author = user.username
         end
       else
-        output = FactGet(key)
+        output = FactGet(key,tokens,marker)
       end
     else
       logger.Log("warning","Database connection failed, reconnect was unsuccessful.")
@@ -65,7 +68,7 @@ function public.Reconnect()
 end
 
 function public.Connect()
-  local name = "Factoids.db"
+  local name = db_name
   local conn = sqlite.open(name)
   conn:exec[[
   create table if not exists factoids(
@@ -147,8 +150,7 @@ function KeepAlive()
   local validator = database:rowexec("SELECT validValue FROM validator WHERE validKey=='Valid'")
   if not validator then
     database:close()
-    local name = "Factoids.db"
-    local conn = sqlite.open(name, "rw")
+    local conn = sqlite.open(db_name, "rw")
     database = conn
     validator = database:rowexec("SELECT validValue FROM validator WHERE validKey=='Valid'")
     logger.Log("notice","Database has been reconnected")
@@ -185,7 +187,7 @@ function ConcatKey(tokens)
   return key
 end
 
-function FactGet(key)
+function FactGet(key,tokens,min)
   local fact = database:rowexec("SELECT fact FROM factoids WHERE key=='" .. key .. "'")
   if not fact then
     fact = "Nothing found for that key"
@@ -193,6 +195,9 @@ function FactGet(key)
     fact = key .. " " .. fact:gsub("<is>", "is") 
   elseif string.find(fact, "<reply>") then
     fact = fact:gsub("<reply>", "")
+  end
+  if fact:find("~s") then
+    fact = fact:gsub("~s",tokens[min])
   end
   return fact
 end
