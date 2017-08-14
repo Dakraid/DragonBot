@@ -208,9 +208,11 @@ function FactGet(key,tokens)
   local fact = database:rowexec("SELECT fact FROM factoids WHERE key=='" .. key .. "'")
   if not fact then
     fact = "Nothing found for that key"
-  elseif string.find(fact, "<is>") then
+  elseif fact:find("''") then
+    fact = fact:gsub("''","'")
+  elseif fact:find("<is>") then
     fact = key .. " " .. fact:gsub("<is>", "is") 
-  elseif string.find(fact, "<reply>") then
+  elseif fact:find("<reply>") then
     fact = fact:gsub("<reply>", "")
   end
   if fact:find("~+.") then
@@ -246,6 +248,7 @@ function FactAdd(key,tokens,min,user)
       fact = tokens[min] .. " "
     end
     fact = fact:sub(1, -2)
+    fact = fact:gsub("'","''")
     database:rowexec("INSERT INTO factoids VALUES ('" .. key .. "','" .. info .. "','" .. time .. "',NULL,NULL,NULL,NULL,'" .. fact .. "',0)")
     logger.Log("notice","Added '" .. key .. "' with the content '" .. fact .. "'")
     output = "Fact " .. key .. " has been added."
@@ -271,6 +274,7 @@ function FactAppend(key,tokens,min,user)
       fact = tokens[min] .. " "
     end
     fact = fact:sub(1, -2)
+    fact = fact:gsub("'","''")
     database:rowexec("REPLACE INTO factoids VALUES ('" .. key .. "','" .. info .. "','" .. time .. "',NULL,NULL,NULL,NULL,'" .. fact .. "',0)")
     logger.Log("notice","Modified '" .. key .. "'. New content is '" .. fact .. "'")
     output = "Fact " .. key .. " has been updated."
@@ -333,6 +337,7 @@ function public.FactReplace(tokens,trigger,user)
       fact = tokens[min] .. " "
     end
     fact = fact:sub(1, -2)
+    fact = fact:gsub("'","''")
     database:rowexec("REPLACE INTO factoids VALUES ('" .. key .. "','" .. info .. "','" .. time .. "',NULL,NULL,NULL,NULL,'" .. fact .. "',0)")
     logger.Log("notice","Replaced '" .. key .. "' with the content '" .. fact .. "'")
     output = "Fact " .. key .. " has been replaced."
