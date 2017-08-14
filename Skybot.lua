@@ -71,11 +71,11 @@ if debugmode == true then
       for i=first,count do
           split_msg = split_msg .. out_msg[1][i] .. ", "
       end
-      print("DEBUG: ",split_msg,out_athr)
+      print("OUTPUT: ",split_msg,out_athr)
     else
-      print("DEBUG: ",out_msg,out_athr)
+      print("OUTPUT: ",out_msg,out_athr)
     end
   until input == "quit"
 end
 
-client:run(GetConfig("token"))
+client:run(config["token"])

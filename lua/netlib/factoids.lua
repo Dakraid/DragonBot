@@ -15,7 +15,8 @@ local max_split = 4
 function public.Process(tokens,user)
   local output
   local author
-  local marker = nil
+  local marker
+  local switch = false
   logger.Log("notice","Entered Factoids.lua")
   -- Open connection to the SQLite database
   if not db_lock then
@@ -24,23 +25,32 @@ function public.Process(tokens,user)
   if db_conn then
     if KeepAlive() then
       for i=1,max_split do
-        if tokens[i] == "is" then marker = i+1 end
+        if tokens[i] == "is" then 
+          if tokens[i+1] == "also" then
+            switch = true
+          end
+          marker = i + 1 
+        end
       end
       local key = ConcatKey(tokens)
       logger.Log("notice","Compiled key is '" .. key .."'")
       if marker then
         if perms.CheckPermission(user,1) then
-          output = FactAdd(key,tokens,marker,user)
+          if switch then
+            output = FactAppend(key,tokens,marker,user)
+          else
+            output = FactAdd(key,tokens,marker,user)
+          end
           author = user.username
         end
       else
-        output = FactGet(key,tokens,marker)
+        output = FactGet(key,tokens)
       end
     else
       logger.Log("warning","Database connection failed, reconnect was unsuccessful.")
     end
   else
-    output = "Database is locked."
+    output = "Database is not connected."
     logger.Log("notice","Database is not connected")
   end
   return output, author
@@ -174,20 +184,27 @@ function ConcatKey(tokens)
       key = key:lower()
       return key
     else
-      if i == max then
-        key = key .. tokens[i]
+      if tokens[i]:find("~+.") then
+        if i == max then
+          key = key:sub(1, -2)
+        end
       else
-        key = key .. tokens[i] .. " "
+        if i == max then
+          key = key .. tokens[i]
+        else
+          key = key .. tokens[i] .. " "
+        end
       end
     end
   end
   key = key:sub(2)
   key = key:lower()
-  print(key)
   return key
 end
 
-function FactGet(key,tokens,min)
+function FactGet(key,tokens)
+  local max = table.count(tokens)
+  local switch
   local fact = database:rowexec("SELECT fact FROM factoids WHERE key=='" .. key .. "'")
   if not fact then
     fact = "Nothing found for that key"
@@ -196,8 +213,19 @@ function FactGet(key,tokens,min)
   elseif string.find(fact, "<reply>") then
     fact = fact:gsub("<reply>", "")
   end
-  if fact:find("~s") then
-    fact = fact:gsub("~s",tokens[min])
+  if fact:find("~+.") then
+    local param
+    for i=1,max do
+      if tokens[i]:find("~+.") then
+        param = tokens[i]
+        param = param:sub(2)
+      end
+    end
+    if param then
+      fact = fact:gsub("~([^%p%s]*)",param)
+    else
+      fact = fact:gsub("~([^%p%s]*)","placeholder")
+    end
   end
   return fact
 end
@@ -220,9 +248,34 @@ function FactAdd(key,tokens,min,user)
     fact = fact:sub(1, -2)
     database:rowexec("INSERT INTO factoids VALUES ('" .. key .. "','" .. info .. "','" .. time .. "',NULL,NULL,NULL,NULL,'" .. fact .. "',0)")
     logger.Log("notice","Added '" .. key .. "' with the content '" .. fact .. "'")
-    output = "Fact has been added."
+    output = "Fact " .. key .. " has been added."
   else
-    output = "That fact already exists."
+    output = "The fact " .. key .. " already exists."
+  end
+  return output
+end
+
+function FactAppend(key,tokens,min,user)
+  local output
+  local fact = database:rowexec("SELECT fact FROM factoids WHERE key=='" .. key .. "'")
+  if fact then
+    local max = table.count(tokens)
+    local info = user.username .. " (ID: " .. user.id .. ")"
+    local time = os.time()
+    fact = fact .. " | "
+    if max > 3 then
+      for i=min+1,max do
+        fact = fact .. tokens[i] .. " "
+      end
+    else
+      fact = tokens[min] .. " "
+    end
+    fact = fact:sub(1, -2)
+    database:rowexec("REPLACE INTO factoids VALUES ('" .. key .. "','" .. info .. "','" .. time .. "',NULL,NULL,NULL,NULL,'" .. fact .. "',0)")
+    logger.Log("notice","Modified '" .. key .. "'. New content is '" .. fact .. "'")
+    output = "Fact " .. key .. " has been updated."
+  else
+    output = "The fact " .. key .. " doesn't exists."
   end
   return output
 end
@@ -243,9 +296,9 @@ function public.FactRemove(tokens,trigger)
     if fact then
       database:rowexec("DELETE FROM factoids WHERE key=='" .. key .. "'")
       logger.Log("notice","The fact with the key '" .. key .. "' and the content '" .. fact .. "'" .. " has been deleted")
-      output = "Fact has been deleted."
+      output = "Fact " .. key .. " has been deleted."
     else
-      output = "That fact doesn't exists."
+      output = "The fact " .. key .. " doesn't exists."
     end
   end
   return output
@@ -282,19 +335,11 @@ function public.FactReplace(tokens,trigger,user)
     fact = fact:sub(1, -2)
     database:rowexec("REPLACE INTO factoids VALUES ('" .. key .. "','" .. info .. "','" .. time .. "',NULL,NULL,NULL,NULL,'" .. fact .. "',0)")
     logger.Log("notice","Replaced '" .. key .. "' with the content '" .. fact .. "'")
-    output = "Fact has been replaced."
+    output = "Fact " .. key .. " has been replaced."
   else
-    output = "That fact doesn't exists."
+    output = "The fact " .. key .. " doesn't exists."
   end
   return output
-end  
-
--- These function are yet to be implemented
---[[
-
-function FactAppend()
 end
-
---]]
 
 return public

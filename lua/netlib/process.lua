@@ -8,13 +8,13 @@ local Commands    = require('./commands')
 local Tokens      = {}
 local out_message, out_author, out_repeat
 
-local Permissions    = require('./permissions')
+local Permissions = require('./permissions')
 local Factoids    = require('./factoids')
 
 function public.ProcessMessage(content,user,member,guild)
   if not content then return end
   if not user then return end
-  if content:find(Trigger) == 1 then
+  if content:find(Trigger) == 1 and content:len() > 1 then
     Tokens = Tokenize(content)
     if not Permissions.CheckBlacklist(user) then
       if Permissions.CheckPermission(user,0) then
@@ -58,6 +58,11 @@ function ProcessCommand(user,member,guild,Tokens)
       out_repeat    = true
     end
   end
+  if Permissions.CheckPermission(user,3) then
+    if     command == Trigger .. "quit" then
+      Quit()
+    end
+  end
   return out_message, out_author, out_repeat
 end
 
@@ -74,6 +79,11 @@ function Tokenize(content)
     tkns[cnt] = token
   end
   return tkns
+end
+
+function Quit()
+  Factoids.Disconnect()
+  os.exit()
 end
 
 -- Returns true if the command has been found in the list
