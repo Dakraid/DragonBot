@@ -9,3 +9,4 @@ blacklist.lua
 gateway.json
 loadmap.lua
 userlist.lua
+factconfig.lua
