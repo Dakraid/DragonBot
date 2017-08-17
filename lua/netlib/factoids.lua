@@ -8,8 +8,16 @@ local fconfig   = require('factconfig')
 local db_name   = GetFactConfig("database_name")
 
 local public    = {}
+local log_msg   = {
+  [101] = "Database '" .. db_name .. "' connected",
+  [102] = "Database '" .. db_name .. "' disconnected",
+  [103] = "Database '" .. db_name .. "' reloaded",
+  [104] = "Could not connect to database '" .. db_name .. "'",
+  [105] = "Database name returned invalid value nil",
+}
 
-local database, db_conn, db_lock
+
+local database, db_conn
 
 --Component Functions--
 local function CleanComponent(content)
@@ -41,32 +49,44 @@ end
 
 --Database Functions--
 local function Connect()
-  if not db_name then 
-    logger.Log("warning","Could not connect to database '" .. db_name .. "'")
-    return false
-  else
-    database = sqlite.open(db_name)
-    database:exec[[
-    create table if not exists factoids(
-      key TEXT PRIMARY KEY,
-      created_by TEXT,
-      created_at TIMESTAMP,
-      modified_by TEXT,
-      modified_at TIMESTAMP,
-      locked_at TIMESTAMP,
-      locked_by TEXT,
-      fact TEXT,
-      requested_count INTEGER
-    );
-    create table if not exists validator(
-      validKey TEXT PRIMARY KEY,
-      validValue BOOL
-    );
-    insert or replace into validator (validKey,validValue) values ("Valid","true");
-    ]]
-    db_conn = true
-    logger.Log("notice","Database '" .. db_name .. "' connected")
+  if db_conn then
     return true
+  else
+    if not db_name then 
+      logger.Log("warning",log_msg[105])
+      return false
+    else
+      database = sqlite.open(db_name)
+      database:exec[[
+      create table if not exists factoids(
+        key TEXT PRIMARY KEY,
+        created_by TEXT,
+        created_at TIMESTAMP,
+        modified_by TEXT,
+        modified_at TIMESTAMP,
+        locked_at TIMESTAMP,
+        locked_by TEXT,
+        fact TEXT,
+        requested_count INTEGER
+      );
+      create table if not exists validator(
+        validKey TEXT PRIMARY KEY,
+        validValue BOOL
+      );
+      insert or replace into validator (validKey,validValue) values ("Valid","true");
+      ]]
+      db_conn = true
+      logger.Log("notice",log_msg[101])
+      return true
+    end
+  end
+end
+
+local function Disconnect()
+  if db_conn then
+    database:close()
+    db_conn = false
+    logger.Log("notice",log_msg[102])
   end
 end
 
@@ -92,7 +112,7 @@ local function FactGet(key,content)
   return fact
 end
 
---Processing Function--
+--Public Functions--
 function public.Process(content,user)
   local key,fact = GetComponents(content)
   
@@ -100,7 +120,6 @@ function public.Process(content,user)
     if key and not fact then
       output = FactGet(key,content)
     elseif key and fact then
-      print("Key: '" .. key .. "' Fact: '" .. fact .. "'")
       if content:find("(is)(%s*)(also)") then
         output,author = FactAppend(key,fact,user)
       else
@@ -108,10 +127,16 @@ function public.Process(content,user)
       end
     end
   else
-    logger.Log("warning","Could not connect to database")
+    logger.Log("warning",log_msg[104])
   end
   
   return output, author
+end
+
+function public.ReloadDB()
+  Disconnect()
+  Connect()
+  logger.Log("notice",log_msg[103])
 end
 
 return public
