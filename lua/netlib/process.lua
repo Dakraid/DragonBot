@@ -19,7 +19,7 @@ function public.ProcessMessage(content,user)
   -- Check if the trigger is at the expected position and if there is an actual input
   if content:find(Trigger) == 1 and content:len() > 1 then
     if not Permissions.CheckBlacklist(user) and Permissions.CheckPermission(user,0) then
-        Factoids.Process(content,user)
+        out_message, out_author = Factoids.Process(content,user)
     end
     return out_message, out_author, out_repeat
   end
