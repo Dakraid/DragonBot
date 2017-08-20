@@ -8,6 +8,7 @@ local client    = discordia.Client()
 local netlib    = require('./lua/netlib')
 local logger    = netlib.Logger
 local prcs      = netlib.Process
+local loader    = netlib.Loader
 
 client:on('ready', function()
 	logger.Log("notice","Connecting...")
@@ -31,6 +32,9 @@ client:on('messageCreate', function(message)
     end
   end
 end)
+
+loader.Initialize()
+prcs.Test()
 
 -- Debugging Interface
 if debugmode == true then

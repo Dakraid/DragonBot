@@ -1,21 +1,23 @@
-local logger    = require('./logger')
-local perms     = require('./permissions')
+local definition  = {name = "factoids", version = "2.0", commands = {"no","forget","reloaddb"}, special = "process"}
+local public      = {}
 
-local mconfig   = require('config')
-local trigger   = GetMainConfig("trigger")
+local netlib      = require('../../lua/netlib')
+local logger      = netlib.Logger
+local perms       = netlib.Permissions
 
-local fconfig   = require('factconfig')
-local db_name   = GetFactConfig("database_name")
+local mconfig     = require('config')
+local trigger     = GetMainConfig("trigger")
 
-local public    = {}
-local log_msg   = {
-  [101] = "Database '" .. db_name .. "' connected",
-  [102] = "Database '" .. db_name .. "' disconnected",
-  [103] = "Database '" .. db_name .. "' reloaded",
-  [104] = "Could not connect to database '" .. db_name .. "'",
-  [105] = "Database name returned invalid value nil",
+local fconfig     = require('factconfig')
+local db_name     = GetFactConfig("database_name")
+
+local log_msg     = {
+    [101] = "Database '" .. db_name .. "' connected",
+    [102] = "Database '" .. db_name .. "' disconnected",
+    [103] = "Database '" .. db_name .. "' reloaded",
+    [104] = "Could not connect to database '" .. db_name .. "'",
+    [105] = "Database name returned invalid value nil"
 }
-
 
 local database, db_conn
 
@@ -113,7 +115,7 @@ local function FactGet(key,content)
 end
 
 --Public Functions--
-function public.Process(content,user)
+function public.process(content,user)
   local key,fact = GetComponents(content)
   
   if Connect() then
@@ -133,10 +135,26 @@ function public.Process(content,user)
   return output, author
 end
 
-function public.ReloadDB()
+function public.no()
+  print("Factoids' 'no' has been called")
+end
+
+function public.forget()
+  print("Factoids' 'forget' has been called")
+end
+
+function public.reloaddb()
   Disconnect()
   Connect()
   logger.Log("notice",log_msg[103])
+end
+
+function public.Init()
+  if Connect() then
+    return definition
+  else
+    return false
+  end
 end
 
 return public
