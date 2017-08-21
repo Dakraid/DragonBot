@@ -157,4 +157,8 @@ function public.Init()
   end
 end
 
+function public.GetProperty(name)
+  return definition[name]
+end
+
 return public

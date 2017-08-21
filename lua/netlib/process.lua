@@ -33,12 +33,17 @@ function public.ProcessMessage(content,user)
       if CheckCommand(command) then
         for i,plugin in pairs(loader.GetPlugins()) do
           if plugin[command] then
-            plugin[command](content,user)
+            out_message, out_author = plugin[command](content,user)
           end
         end
       else
-        if Special[1] then 
-          
+        if table.count(Special) > 0 then 
+          for i,plugin in pairs(loader.GetPlugins()) do
+            local temp = plugin["GetProperty"]("special")
+            if temp then
+              out_message, out_author = plugin[temp](content,user)
+            end
+          end
         end
       end
     end
