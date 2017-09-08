@@ -1,4 +1,9 @@
-local definition  = {name = "factoids", version = "2.0", commands = {"no","forget","reloaddb"}, special = "process"}
+local definition  = {
+  name = "factoids", 
+  version = "2.0", 
+  help = "New Facts can be added by using the bot trigger, a key and the fact like this '!x is y'. 'is' indicates the split between key and fact, everything before the 'is' will be considered as key, everything after as the fact. You can also replace keys by using 'no' before the actual key. Facts can be removed by placing 'forget' before the key.", 
+  commands = {"no","forget","reloaddb"}, 
+  special = "process"}
 local public      = {}
 
 local netlib      = require('../../lua/netlib')
@@ -120,7 +125,8 @@ local function FactGet(key,content)
         else
             local fact_select = fact:match("%((.+)%)")
             fact_select = fact_select:split("|")
-            fact = fact:gsub("%((.+)%)",fact_select[math.random(#fact_select)])
+            local fact_selected = fact_select[math.random(#fact_select)]
+            fact = fact:gsub("%((.+)%)",fact_selected)
         end
     end
     return fact
@@ -144,6 +150,30 @@ local function FactAdd(key,fact,user)
         end
     else
         output = "The key '" .. key .. "' already exists."
+    end
+    return output
+end
+
+local function FactAppend(key,fact,user)
+    local output
+    local test = database:rowexec("SELECT fact FROM factoids WHERE key=='" .. key .. "'")
+    if test then
+        if fact then
+            if fact:find("'") then
+                fact = fact:gsub("'","''")
+            end
+            local info = user.username .. " (ID: " .. user.id .. ")"
+            local time = os.time()
+            fact = ScrubCommand(fact,"also")
+            fact = test .. " | " .. fact
+            database:rowexec("REPLACE INTO factoids VALUES ('" .. key .. "','" .. info .. "','" .. time .. "',NULL,NULL,NULL,NULL,'" .. fact .. "',0)")
+            logger.Log("notice","User '" .. info ..  "' added '" .. key .. "' with the content '" .. fact .. "'")
+            output = "Fact " .. key .. " has been added."
+        else
+            output = "No Fact has been provided."
+        end
+    else
+        output = "The key '" .. key .. "' doesn't exists."
     end
     return output
 end
