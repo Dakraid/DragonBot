@@ -1,8 +1,8 @@
-## SkybotV2 :: A Lua powered Discord Bot
+## DragonBot :: A Lua powered Discord Bot
 
 ### This is still an early prototype, so everything is subject to change
 
-SkybotV2 is a Discord bot written in Lua and utilizes Luvit and the Discordia library.
+DragonBot is a Discord bot written in Lua and utilizes Luvit and the Discordia library.
 
 The main functionality of the bot will come from an assortment of plugins included with the bot.
 
@@ -15,7 +15,7 @@ Currently all commands are processed within process.lua within the netlib and ar
 To run the bot under Windows, execute the Install.bat script. After running the script, go to [SQLite.org Downloads](https://sqlite.org/download.html) and get the corresponding pre-compiled Windows Binaries for your system. From the archive copy the sqlite3.dll into the project directory. That's it. The setup script looks like this:
 ```
 @echo off
-REM Installer for SkybotV2
+REM Installer for DragonBot
 
 REM Install Luvit
 PowerShell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://github.com/luvit/lit/raw/master/get-lit.ps1'))"
@@ -32,7 +32,7 @@ The Setup script should get everything running. If you want to do it manually, y
 
 ```
 #!/bin/bash
-# Installer for SkybotV2
+# Installer for DragonBot
 
 # Install Luvit
 curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh

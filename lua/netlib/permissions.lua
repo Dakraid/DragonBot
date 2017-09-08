@@ -1,7 +1,7 @@
 local public        = {}
 
 local Config        = require('config')
-local DefaultPerms  = GetConfig("defaultclearance")
+local DefaultPerms  = GetMainConfig("defaultclearance")
 
 local Users         = require('userlist')
 local Blacklist     = require('blacklist')

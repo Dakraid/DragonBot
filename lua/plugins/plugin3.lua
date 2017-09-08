@@ -1,1 +1,0 @@
-name = "Plugin 3"
