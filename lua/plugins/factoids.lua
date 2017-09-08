@@ -112,10 +112,16 @@ local function FactGet(key,content)
     else
         fact = fact:gsub("~([^%p%s]*)","Placeholder")
     end
-    if fact:match("^%((.+)%)") then
-        fact = fact:match("%((.+)%)")
-        local fact_select = fact:split("|")
-        fact = fact_select[math.random(#fact_select)]
+    if fact:match("%((.+)%)") then
+        if fact:match("^%((.+)%)") then
+            local fact_select = fact:match("^%((.+)%)")
+            fact_select = fact_select:split("|")
+            fact = fact_select[math.random(#fact_select)]
+        else
+            local fact_select = fact:match("%((.+)%)")
+            fact_select = fact_select:split("|")
+            fact = fact:gsub("%((.+)%)",fact_select[math.random(#fact_select)])
+        end
     end
     return fact
 end
