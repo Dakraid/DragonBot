@@ -27,6 +27,9 @@ end
 local function Help(user)
     local text_commands = "Following commands are available: " .. table.concat(Commands, ", ") .. "\n"
     local text_help = "More help text coming soon."
+    for i,plugin in pairs(loader.GetPlugins()) do
+        text_help = plugin["GetProperty"]("name") .. ": " .. plugin["GetProperty"]("help") .. "\n"
+    end
     text = text_commands .. text_help
     print(text)
     return text, user.username
