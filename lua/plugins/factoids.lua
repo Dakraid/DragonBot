@@ -1,7 +1,7 @@
 local definition  = {
   name = "factoids", 
   version = "2.0", 
-  help = "New Facts can be added by using the bot trigger, a key and the fact like this '!x is y'. 'is' indicates the split between key and fact, everything before the 'is' will be considered as key, everything after as the fact. You can also replace keys by using 'no' before the actual key. Facts can be removed by placing 'forget' before the key.", 
+  help = "New Facts can be added by using the bot trigger, a key and the fact like this '!x is y'. 'is' indicates the split between key and fact, everything before the 'is' will be considered as key, everything after as the fact. You can also replace keys by using 'no' before the actual key. Facts can be removed by placing 'forget' before the key. You can also append a fact to a key by using 'is also' instead of just 'is'.", 
   commands = {"no","forget","reloaddb"}, 
   special = "process"}
 local public      = {}
