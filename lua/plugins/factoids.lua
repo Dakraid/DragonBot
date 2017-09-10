@@ -200,6 +200,7 @@ end
 function public.no(content,user)
     local key,fact = GetComponents(content)
     key = ScrubCommand(key,"no")
+    key = ScrubCommand(key,"^,")
     if Connect() then
         local test = database:rowexec("SELECT fact FROM factoids WHERE key=='" .. key .. "'")
         if test then
