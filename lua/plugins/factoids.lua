@@ -15,6 +15,7 @@ local trigger     = GetMainConfig("trigger")
 
 local fconfig     = require('factconfig')
 local db_name     = GetFactConfig("database_name")
+local p_char      = "$"
 
 local log_msg     = {
     [101] = "Database '" .. db_name .. "' connected",
@@ -103,7 +104,7 @@ local function Disconnect()
 end
 
 --Factoid Functions--
-local function FactGet(key,content)
+local function FactGet(key,content,user)
     local fact = database:rowexec("SELECT fact FROM factoids WHERE key=='" .. key .. "'")
     if not fact then
         fact = "Nothing found for '" .. key .. "'"
@@ -111,22 +112,19 @@ local function FactGet(key,content)
     if fact:find("''") then
         fact = fact:gsub("''","'")
     end
-    local insert = content:match("~(%w*)")
-    if insert then
-        fact = fact:gsub("~([^%p%s]*)",insert)
-    else
-        fact = fact:gsub("~([^%p%s]*)","Placeholder")
+    if fact:match(p_char .. "u") then
+        fact = fact:gsub(p_char .. "u",user.username)
     end
-    if fact:match("%((.+)%)") then
-        if fact:match("^%((.+)%)") then
-            local fact_select = fact:match("^%((.+)%)")
+    if fact:match(p_char .. "r%((.+)%)") then
+        if fact:match("^" .. p_char .. "r%((.+)%)") then
+            local fact_select = fact:match("^" .. p_char .. "r%((.+)%)")
             fact_select = fact_select:split("|")
             fact = fact_select[math.random(#fact_select)]
         else
-            local fact_select = fact:match("%((.+)%)")
+            local fact_select = fact:match(p_char .. "r%((.+)%)")
             fact_select = fact_select:split("|")
             local fact_selected = fact_select[math.random(#fact_select)]
-            fact = fact:gsub("%((.+)%)",fact_selected)
+            fact = fact:gsub(p_char .. "r%((.+)%)",fact_selected)
         end
     end
     return fact
@@ -183,7 +181,7 @@ function public.process(content,user)
     local key,fact = GetComponents(content)
     if Connect() then
         if key and not fact then
-            output = FactGet(key,content)
+            output = FactGet(key,content,user)
         elseif key and fact then
             if content:find("(is)(%s*)(also)") then
                 output,author = FactAppend(key,fact,user)
