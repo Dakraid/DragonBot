@@ -112,9 +112,6 @@ local function FactGet(key,content,user)
     if fact:find("''") then
         fact = fact:gsub("''","'")
     end
-    if fact:match(p_char .. "u") then
-        fact = fact:gsub(p_char .. "u",user.username)
-    end
     if fact:match(p_char .. "r%((.+)%)") then
         if fact:match("^" .. p_char .. "r%((.+)%)") then
             local fact_select = fact:match("^" .. p_char .. "r%((.+)%)")
@@ -126,6 +123,9 @@ local function FactGet(key,content,user)
             local fact_selected = fact_select[math.random(#fact_select)]
             fact = fact:gsub(p_char .. "r%((.+)%)",fact_selected)
         end
+    end
+    if fact:match(p_char .. "u") then
+        fact = fact:gsub(p_char .. "u",user.username)
     end
     return fact
 end
