@@ -10,10 +10,10 @@ local logger    = netlib.Logger
 local prcs      = netlib.Process
 local loader    = netlib.Loader
 
-local message
+local message, out_msg, out_athr
 
 local function Processer()
-    return prcs.ProcessMessage(message.content,message.author,message.member)
+    out_msg, out_athr = prcs.ProcessMessage(message.content,message.author,message.member)
 end
 
 local function ErrorHandler(x)
@@ -37,7 +37,7 @@ client:on('messageCreate', function(msg)
     if message.author == client.user then return end
 
     -- Process the message and store the results
-    local out_msg, out_athr = xpcall(Processer, ErrorHandler)
+    xpcall(Processer, ErrorHandler)
 
     -- Check that out_msg is not empty
     if out_msg then
