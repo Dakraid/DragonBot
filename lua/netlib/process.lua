@@ -10,13 +10,16 @@ local SysCmds     = {"help","quit"}
 local Tokens      = {}
 local out_message, out_author, out_repeat
 
-local logger    = require('./logger')
-local perms     = require('./permissions')
-local loader    = require('./loader')
+local logger      = require('./logger')
+local perms       = require('./permissions')
+local loader      = require('./loader')
+
+local d_table       = discordia.extensions.table
+local d_string      = discordia.extensions.string
 
 ---Utility Functions---
 local function CheckCommand(command)
-    if discordia.extensions.table.search(Commands,command) then
+    if d_table.search(Commands,command) then
         return true
     else
         return false
@@ -31,7 +34,6 @@ local function Help(user)
         text_help = plugin["GetProperty"]("name") .. ": " .. plugin["GetProperty"]("help") .. "\n"
     end
     text = text_commands .. text_help
-    print(text)
     return text, user.username
 end
 
@@ -41,26 +43,24 @@ local function Quit()
 end
 
 local function Test(user)
-    local text
-    text = user.role.name
-    return text
+    print("Test")
 end
 
 ---Public Functions---
-function public.ProcessMessage(content,user)
+function public.ProcessMessage(content,user,member)
     if not content then return end
     if not user then return end
     if content:find(Trigger) == 1 and content:len() > 1 then
         if not perms.CheckBlacklist(user) and perms.CheckPermission(user,0) then
             local command = content:match(Trigger .. "(%w*)")
             if CheckCommand(command) then
-                if discordia.extensions.table.search(SysCmds, command) then
+                if d_table.search(SysCmds, command) then
                     if command == "help" then
                         out_message, out_author = Help(user)
                     elseif command == "quit" then
                         Quit()
-                    elseif command == "devtest" then
-                        out_message, out_author = Test(user)
+                    elseif command == "dev" then
+                        Test(user)
                     end
                 else
                     for i,plugin in pairs(loader.GetPlugins()) do
@@ -70,7 +70,7 @@ function public.ProcessMessage(content,user)
                     end
                 end
             else
-                if discordia.extensions.table.count(Special) > 0 then
+                if d_table.count(Special) > 0 then
                     for i,plugin in pairs(loader.GetPlugins()) do
                         local temp = plugin["GetProperty"]("special")
                         if temp then

@@ -4,6 +4,7 @@
 *.db
 *.so
 *.txt
+*.log
 config.lua
 blacklist.lua
 gateway.json
