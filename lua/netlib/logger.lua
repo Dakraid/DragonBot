@@ -11,9 +11,9 @@ function public.Log(msg_type,msg_content)
   time = os.date('%Y-%m-%d %H:%M:%S', time)
   
   if msg_type == "notice" then
-    output = "[" .. time .. "]" .. " [NOTICE]: " .. msg_content
+    output = time .. " | [NOTICE]: " .. msg_content
   elseif msg_type == "warning" then
-    output = "[" .. time .. "]" .. " [WARNING]: " .. msg_content
+    output = time .. " | [WARNING]: " .. msg_content
   elseif msg_type == "error" then
     error("[ERROR]: " .. msg_content,2)
   else

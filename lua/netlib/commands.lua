@@ -1,2 +1,2 @@
-inbuilt = {"help","quit"}
+inbuilt = {"help","quit","devtest"}
 return inbuilt

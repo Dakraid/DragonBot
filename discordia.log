@@ -1,0 +1,148 @@
+2017-10-03 19:24:06 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:24:06 | [INFO]    | Connecting to Discord...
+2017-10-03 19:24:06 | [ERROR]   | 401 - UNAUTHORIZED : GET https://discordapp.com/api/v7/users/@me
+2017-10-03 19:24:06 | [ERROR]   | Could not authenticate, check token: HTTP Error 0 : 401: Unauthorized
+2017-10-03 19:26:16 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:26:16 | [INFO]    | Connecting to Discord...
+2017-10-03 19:26:16 | [ERROR]   | 401 - UNAUTHORIZED : GET https://discordapp.com/api/v7/users/@me
+2017-10-03 19:26:16 | [ERROR]   | Could not authenticate, check token: HTTP Error 0 : 401: Unauthorized
+2017-10-03 19:27:33 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:27:33 | [INFO]    | Connecting to Discord...
+2017-10-03 19:27:33 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:27:33 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:27:34 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:27:34 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-4ks3)
+2017-10-03 19:27:34 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-4ks3, discord-sessions-prd-1-15)
+2017-10-03 19:30:36 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:30:36 | [INFO]    | Connecting to Discord...
+2017-10-03 19:30:36 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:30:36 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:30:36 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:30:36 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-0sv5)
+2017-10-03 19:30:37 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-0sv5, discord-sessions-prd-1-2)
+2017-10-03 19:30:55 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:30:55 | [INFO]    | Connecting to Discord...
+2017-10-03 19:30:55 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:30:55 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:30:55 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:30:55 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-4lj8)
+2017-10-03 19:30:56 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-4lj8, discord-sessions-prd-1-6)
+2017-10-03 19:31:11 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:31:11 | [INFO]    | Connecting to Discord...
+2017-10-03 19:31:12 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:31:12 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:31:12 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:31:12 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-4ks3)
+2017-10-03 19:31:13 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-4ks3, discord-sessions-prd-1-1)
+2017-10-03 19:37:02 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:37:02 | [INFO]    | Connecting to Discord...
+2017-10-03 19:37:02 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:37:02 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:37:02 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:37:02 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-fhh9)
+2017-10-03 19:37:03 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-fhh9, discord-sessions-prd-1-8)
+2017-10-03 19:38:10 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:38:10 | [INFO]    | Connecting to Discord...
+2017-10-03 19:38:10 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:38:10 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:38:11 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:38:11 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-skw4)
+2017-10-03 19:38:11 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-skw4, discord-sessions-prd-1-1)
+2017-10-03 19:39:45 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:39:45 | [INFO]    | Connecting to Discord...
+2017-10-03 19:39:45 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:39:45 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:39:46 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:39:46 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-bqtv)
+2017-10-03 19:39:46 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-bqtv, discord-sessions-prd-1-16)
+2017-10-03 19:40:05 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:40:05 | [INFO]    | Connecting to Discord...
+2017-10-03 19:40:05 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:40:05 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:40:06 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:40:06 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-69wh)
+2017-10-03 19:40:06 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-69wh, discord-sessions-prd-1-4)
+2017-10-03 19:41:11 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:41:11 | [INFO]    | Connecting to Discord...
+2017-10-03 19:41:11 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:41:11 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:41:12 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:41:12 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-ktd7)
+2017-10-03 19:41:12 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-ktd7, discord-sessions-prd-1-5)
+2017-10-03 19:42:03 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:42:03 | [INFO]    | Connecting to Discord...
+2017-10-03 19:42:03 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:42:03 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:42:05 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:42:05 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-rcqz)
+2017-10-03 19:42:05 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-rcqz, discord-sessions-prd-1-1)
+2017-10-03 19:42:46 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:42:46 | [INFO]    | Connecting to Discord...
+2017-10-03 19:42:46 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:42:47 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:42:47 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:42:47 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-rcqz)
+2017-10-03 19:42:47 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-rcqz, discord-sessions-prd-1-14)
+2017-10-03 19:43:08 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:43:08 | [INFO]    | Connecting to Discord...
+2017-10-03 19:43:08 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:43:08 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:43:08 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:43:08 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-112d)
+2017-10-03 19:43:08 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-112d, discord-sessions-prd-1-7)
+2017-10-03 19:52:18 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:52:18 | [INFO]    | Connecting to Discord...
+2017-10-03 19:52:18 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:52:18 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:52:19 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:52:19 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-fbr8)
+2017-10-03 19:52:19 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-fbr8, discord-sessions-prd-1-12)
+2017-10-03 19:52:33 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:52:33 | [INFO]    | Connecting to Discord...
+2017-10-03 19:52:33 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:52:33 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:52:34 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:52:34 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-71d4)
+2017-10-03 19:52:34 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-71d4, discord-sessions-prd-1-15)
+2017-10-03 19:53:22 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:53:22 | [INFO]    | Connecting to Discord...
+2017-10-03 19:53:22 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:53:22 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:53:24 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:53:24 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-bqtv)
+2017-10-03 19:53:24 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-bqtv, discord-sessions-prd-1-5)
+2017-10-03 19:54:07 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:54:07 | [INFO]    | Connecting to Discord...
+2017-10-03 19:54:08 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:54:08 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:54:08 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:54:08 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-mqtm)
+2017-10-03 19:54:08 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-mqtm, discord-sessions-prd-1-14)
+2017-10-03 19:55:04 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:55:04 | [INFO]    | Connecting to Discord...
+2017-10-03 19:55:04 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:55:04 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:55:05 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:55:05 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-dlqc)
+2017-10-03 19:55:05 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-dlqc, discord-sessions-prd-1-10)
+2017-10-03 19:59:40 | [INFO]    | Discordia 2.0.1
+2017-10-03 19:59:40 | [INFO]    | Connecting to Discord...
+2017-10-03 19:59:40 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 19:59:40 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 19:59:40 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 19:59:40 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-4bwz)
+2017-10-03 19:59:41 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-4bwz, discord-sessions-prd-1-4)
+2017-10-03 20:02:31 | [INFO]    | Discordia 2.0.1
+2017-10-03 20:02:31 | [INFO]    | Connecting to Discord...
+2017-10-03 20:02:31 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 20:02:31 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 20:02:31 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 20:02:31 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-ffvl)
+2017-10-03 20:02:31 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-ffvl, discord-sessions-prd-1-1)
+2017-10-03 20:03:48 | [INFO]    | Discordia 2.0.1
+2017-10-03 20:03:48 | [INFO]    | Connecting to Discord...
+2017-10-03 20:03:48 | [INFO]    | Authenticated as DragonBot#4855
+2017-10-03 20:03:48 | [INFO]    | Launching shard 0 (1 out of 1)...
+2017-10-03 20:03:48 | [INFO]    | Shard 0 : Connected to wss://gateway.discord.gg
+2017-10-03 20:03:48 | [INFO]    | Shard 0 : Received HELLO (gateway-prd-main-skw4)
+2017-10-03 20:03:48 | [INFO]    | Shard 0 : Received READY (gateway-prd-main-skw4, discord-sessions-prd-1-11)

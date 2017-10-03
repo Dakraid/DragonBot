@@ -16,7 +16,7 @@ local loader    = require('./loader')
 
 ---Utility Functions---
 local function CheckCommand(command)
-    if table.find(Commands,command) then
+    if discordia.extensions.table.search(Commands,command) then
         return true
     else
         return false
@@ -40,6 +40,12 @@ local function Quit()
     os.exit()
 end
 
+local function Test(user)
+    local text
+    text = user.role.name
+    return text
+end
+
 ---Public Functions---
 function public.ProcessMessage(content,user)
     if not content then return end
@@ -48,11 +54,13 @@ function public.ProcessMessage(content,user)
         if not perms.CheckBlacklist(user) and perms.CheckPermission(user,0) then
             local command = content:match(Trigger .. "(%w*)")
             if CheckCommand(command) then
-                if table.find(SysCmds, command) then
+                if discordia.extensions.table.search(SysCmds, command) then
                     if command == "help" then
                         out_message, out_author = Help(user)
                     elseif command == "quit" then
                         Quit()
+                    elseif command == "devtest" then
+                        out_message, out_author = Test(user)
                     end
                 else
                     for i,plugin in pairs(loader.GetPlugins()) do
@@ -62,7 +70,7 @@ function public.ProcessMessage(content,user)
                     end
                 end
             else
-                if table.count(Special) > 0 then
+                if discordia.extensions.table.count(Special) > 0 then
                     for i,plugin in pairs(loader.GetPlugins()) do
                         local temp = plugin["GetProperty"]("special")
                         if temp then

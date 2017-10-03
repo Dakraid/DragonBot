@@ -115,11 +115,11 @@ local function FactGet(key,content,user)
     if fact:match(p_char .. "r%((.+)%)") then
         if fact:match("^" .. p_char .. "r%((.+)%)") then
             local fact_select = fact:match("^" .. p_char .. "r%((.+)%)")
-            fact_select = fact_select:split("|")
+            fact_select = discordia.extensions.string.split(fact_select,"|")
             fact = fact_select[math.random(#fact_select)]
         else
             local fact_select = fact:match(p_char .. "r%((.+)%)")
-            fact_select = fact_select:split("|")
+            fact_select = discordia.extensions.string.split(fact_select,"|")
             local fact_selected = fact_select[math.random(#fact_select)]
             fact = fact:gsub(p_char .. "r%((.+)%)",fact_selected)
         end
@@ -178,7 +178,9 @@ end
 
 --Public Functions--
 function public.process(content,user)
+    print(content,user)
     local key,fact = GetComponents(content)
+    print(key,fact)
     if Connect() then
         if key and not fact then
             output = FactGet(key,content,user)

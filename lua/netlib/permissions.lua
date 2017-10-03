@@ -6,10 +6,9 @@ local DefaultPerms  = GetMainConfig("defaultclearance")
 local Users         = require('userlist')
 local Blacklist     = require('blacklist')
 
--- Returns true if the user has been found in the blacklist
 function public.CheckBlacklist(user)
   local id = user.id
-  if table.find(Blacklist,id) then
+  if discordia.extensions.table.search(Blacklist,id) then
     return true
   else
     return false

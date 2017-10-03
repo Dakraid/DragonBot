@@ -2,7 +2,7 @@ local config    = require('config')
 local debugmode = GetMainConfig("debugmode")
 
 _G.sqlite       = require('sqlite3')
-local discordia = require('discordia')
+_G.discordia = require('discordia')
 local client    = discordia.Client()
 
 local netlib    = require('./lua/netlib')
@@ -26,9 +26,9 @@ client:on('messageCreate', function(message)
     if out_msg then
         -- If the return from the process includes a matching username PM the user
         if message.author.username == out_athr then
-            message.author:sendMessage(out_msg, out_athr)
+            message.author:send(out_msg, out_athr)
         else
-            message.channel:sendMessage(out_msg)
+            message.channel:send(out_msg)
         end
     end
 end)
@@ -47,4 +47,4 @@ if debugmode == true then
     until input == "quit"
 end
 
-client:run(GetMainConfig("token"))
+client:run("Bot " .. GetMainConfig("token"))
