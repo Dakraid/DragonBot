@@ -173,6 +173,16 @@ function Guild:createRole(name)
 	end
 end
 
+function Guild:createEmoji(name, image)
+	image = Resolver.base64(image)
+	local data, err = self.client._api:createGuildEmoji(self._id, {name = name, image = image})
+	if data then
+		return self._emojis:_insert(data)
+	else
+		return nil, err
+	end
+end
+
 function Guild:setName(name)
 	return self:_modify({name = name or json.null})
 end
@@ -200,6 +210,11 @@ end
 function Guild:setAFKChannel(id)
 	id = id and Resolver.channelId(id)
 	return self:_modify({afk_channel_id = id or json.null})
+end
+
+function Guild:setSystemChannel(id)
+	id = id and Resolver.channelId(id)
+	return self:_modify({system_channel_id = id or json.null})
 end
 
 function Guild:setOwner(id)
@@ -409,6 +424,14 @@ end
 
 function get.afkChannel(self)
 	return self._voice_channels:get(self._afk_channel_id)
+end
+
+function get.systemChannelId(self)
+	return self._system_channel_id
+end
+
+function get.systemChannel(self)
+	return self._text_channels:get(self._system_channel_id)
 end
 
 function get.defaultRole(self)

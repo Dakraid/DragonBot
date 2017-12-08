@@ -26,4 +26,8 @@ function public.Log(msg_type,msg_content)
   file:flush()
 end
 
+function public.Close()
+  file:close()
+end
+
 return public

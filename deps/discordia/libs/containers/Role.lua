@@ -197,6 +197,10 @@ function get.name(self)
 	return self._name
 end
 
+function get.id(self)
+	return self._id
+end
+
 function get.position(self)
 	return self._position
 end
